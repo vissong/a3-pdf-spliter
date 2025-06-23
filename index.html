@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 试卷分割系统</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-file-pdf"></i> PDF 试卷分割系统</h1>
+            <p class="subtitle">上传 A3 页幅的试卷 PDF 支持切分成 A4 篇幅，方便家庭打印</p>
+            <p class="subtitle">纯前端实现</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3>上传 PDF 文件</h3>
+                        <p>点击选择文件或拖拽文件到此区域</p>
+                        <input type="file" id="fileInput" accept=".pdf" hidden>
+                        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-plus"></i> 选择文件
+                        </button>
+                    </div>
+                </div>
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <div class="file-details">
+                        <i class="fas fa-file-pdf file-icon"></i>
+                        <div class="file-text">
+                            <span class="file-name" id="fileName"></span>
+                            <span class="file-size" id="fileSize"></span>
+                        </div>
+                        <button class="remove-btn" id="removeFile">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="preview-section" id="previewSection" style="display: none;">
+                <div class="preview-header">
+                    <h3><i class="fas fa-eye"></i> PDF 预览</h3>
+                    <div class="preview-controls">
+                        <button class="control-btn" id="zoomOut">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <span class="zoom-level" id="zoomLevel">100%</span>
+                        <button class="control-btn" id="zoomIn">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button class="control-btn" id="detectLinesBtn">
+                            <i class="fas fa-sync fa-spin"></i> 自动检测中...
+                        </button>
+                        <button class="control-btn" id="splitPdfBtn" style="display: none;">
+                            <i class="fas fa-cut"></i> 拆分PDF
+                        </button>
+                        <button class="control-btn" id="qualityBtn" title="切换清晰度">
+                            <i class="fas fa-hd-video"></i> 高清模式
+                        </button>
+                    </div>
+                </div>
+                <div class="preview-container">
+                    <canvas id="pdfCanvas"></canvas>
+                    <div class="page-controls">
+                        <button class="control-btn" id="prevPage">
+                            <i class="fas fa-chevron-left"></i> 上一页
+                        </button>
+                        <span class="page-info">
+                            第 <span id="currentPage">1</span> 页，共 <span id="totalPages">1</span> 页
+                        </span>
+                        <button class="control-btn" id="nextPage">
+                            下一页 <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-bottom">
+                <p>&copy;vissong. Powered By Augment Code</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- PDF-lib Library for PDF creation -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
