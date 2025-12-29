@@ -218,29 +218,124 @@ body {
 }
 
 .preview-container {
-    text-align: center;
+    max-height: 800px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
 }
 
-#pdfCanvas {
+/* 自定义滚动条样式 */
+.preview-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.preview-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.preview-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.preview-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 页面包装器样式 */
+.page-wrapper {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.page-wrapper:last-child {
+    margin-bottom: 0;
+}
+
+/* 页面头部样式 */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.page-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.page-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+.page-status.detected {
+    color: #28a745;
+}
+
+.page-status.not-detected {
+    color: #dc3545;
+}
+
+.page-status.detecting {
+    color: #ffc107;
+}
+
+/* 页面Canvas样式 */
+.page-canvas-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.page-canvas {
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     max-width: 100%;
     height: auto;
+    cursor: default;
 }
 
+/* 页面控制按钮 */
 .page-controls {
-    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
 .page-info {
     font-weight: bold;
     color: #333;
+}
+
+/* 全局检测信息 */
+.global-detection-info {
+    background: linear-gradient(135deg, #e8f5e8, #f0fff0);
+    border: 1px solid #28a745;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.detection-status {
+    font-size: 1rem;
+    color: #155724;
 }
 
 /* Footer 样式 */
@@ -299,6 +394,42 @@ body {
     color: #666;
 }
 
+/* 页面检测信息面板 */
+.page-detection-info {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+.page-detection-info.detected {
+    background: #e8f5e8;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.page-detection-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.page-sensitivity-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+}
+
+.page-sensitivity-control label {
+    white-space: nowrap;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .container {
@@ -333,6 +464,14 @@ body {
     .page-controls {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    .page-wrapper {
+        padding: 15px;
+    }
+    
+    .preview-container {
+        max-height: 600px;
     }
     
     .footer-content {
@@ -397,6 +536,7 @@ body {
     background: #ddd;
     outline: none;
     -webkit-appearance: none;
+    appearance: none;
 }
 
 .sensitivity-slider::-webkit-slider-thumb {
